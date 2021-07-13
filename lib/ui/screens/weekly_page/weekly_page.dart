@@ -16,76 +16,74 @@ class WeeklyPage extends StatefulWidget {
 class _WeeklyPageState extends State<WeeklyPage> {
   @override
   Widget build(BuildContext context) {
-    return BaseView(
-      body: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-            color: AppColors.deepBlue,
-            width: MediaQuery.of(context).size.width,
-            height: 40.h,
-            child: Column(
-              children: [
-                // screenheader
-                ScreenHeader(),
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+          color: AppColors.deepBlue,
+          width: MediaQuery.of(context).size.width,
+          height: 40.h,
+          child: Column(
+            children: [
+              // screenheader
+              ScreenHeader(),
 
-                //
-                SizedBox(height: 5.h),
+              //
+              SizedBox(height: 5.h),
 
-                // main info
-                MainInfoHeader(),
+              // main info
+              MainInfoHeader(),
 
-                SizedBox(
-                  height: 5.h,
+              SizedBox(
+                height: 5.h,
+              ),
+
+              // degree
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  '14',
+                  style: TextStyle(fontSize: 70.sp, color: Colors.white),
                 ),
+              ),
+            ],
+          ),
+        ),
 
-                // degree
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    '14',
-                    style: TextStyle(fontSize: 70.sp, color: Colors.white),
+        //list view
+        Expanded(
+          child: ListView.builder(
+            itemCount: 2,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Container(
+                  height: 8.h,
+                  // color: Colors.black,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      // icon
+                      BoxedIcon(
+                        WeatherIcons.day_thunderstorm,
+                        color: Colors.black,
+                      ),
+
+                      // day
+                      Text('Sat'),
+
+                      // degrees
+                      Text('32/26'),
+
+                      // detail
+                      Text('Mostly cloudy with a thunderstorm'),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              );
+            },
           ),
-
-          //list view
-          Expanded(
-            child: ListView.builder(
-              itemCount: 2,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Container(
-                    height: 8.h,
-                    // color: Colors.black,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        // icon
-                        BoxedIcon(
-                          WeatherIcons.day_thunderstorm,
-                          color: Colors.black,
-                        ),
-
-                        // day
-                        Text('Sat'),
-
-                        // degrees
-                        Text('32/26'),
-
-                        // detail
-                        Text('Mostly cloudy with a thunderstorm'),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

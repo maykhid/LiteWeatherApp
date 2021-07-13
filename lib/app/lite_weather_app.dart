@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lite_weather_app/app/base_app/base_view.dart';
 import 'package:lite_weather_app/ui/screens/weekly_page/weekly_page.dart';
 import 'package:sizer/sizer.dart';
 
@@ -12,7 +13,7 @@ class LiteWeatherApp extends StatelessWidget {
       return MaterialApp(
         // title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        home: WeeklyPage(),
+        home: BaseView(),
       );
     });
   }

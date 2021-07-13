@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lite_weather_app/app/consts/app_colors.dart';
+import 'package:lite_weather_app/ui/screens/today_page/today_page.dart';
+import 'package:lite_weather_app/ui/screens/weekly_page/weekly_page.dart';
 
-class BaseView extends StatelessWidget {
+class BaseView extends StatefulWidget {
   final Widget? body;
 
   const BaseView({
@@ -9,10 +12,53 @@ class BaseView extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _BaseViewState createState() => _BaseViewState();
+}
+
+class _BaseViewState extends State<BaseView> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  List<Widget> _widgetOptions = <Widget>[
+    TodayPage(),
+    WeeklyPage(),
+    WeeklyPage(),
+  ];
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        // currentIndex: 0, // this will be set when a new tab is tapped
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.mail),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          )
+        ],
+
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
+      ),
       backgroundColor: Colors.white,
-      body: SafeArea(child: body!),
+      body: SafeArea(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
     );
   }
 }

@@ -14,46 +14,46 @@ class TodayPage extends StatefulWidget {
 class _TodayPageState extends State<TodayPage> {
   @override
   Widget build(BuildContext context) {
-    return BaseView(
-      body: Column(
-        children: [
-          //image bg
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-            color: Colors.blueAccent.withOpacity(0.9),
-            width: MediaQuery.of(context).size.width,
-            height: 60.h,
-            child: Column(
-              children: [
-                // container search/ham
-                ScreenHeader(),
+    return Column(
+      children: [
+        //image bg
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+          color: Colors.blueAccent.withOpacity(0.9),
+          width: MediaQuery.of(context).size.width,
+          height: 55.h,
+          child: Column(
+            children: [
+              // container search/ham
+              ScreenHeader(),
 
-                SizedBox(height: 5.h),
+              SizedBox(height: 5.h),
 
-                // location details/ date / weather details
-                MainInfoHeader(),
+              // location details/ date / weather details
+              MainInfoHeader(),
 
-                SizedBox(
-                  height: 25.h,
-                ),
+              SizedBox(
+                height: 20.h,
+              ),
 
-                // degree
-                Padding(
-                  padding: EdgeInsets.only(left: 5.w),
-                  child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Text(
-                      '14',
-                      style: TextStyle(fontSize: 70.sp, color: Colors.white),
-                    ),
+              // degree
+              Padding(
+                padding: EdgeInsets.only(left: 5.w),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    '14',
+                    style: TextStyle(fontSize: 70.sp, color: Colors.white),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
+        ),
 
-          // weather details
-          Container(
+        // weather details
+        Expanded(
+          child: Container(
             padding: EdgeInsets.symmetric(vertical: 2.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,14 +119,14 @@ class _TodayPageState extends State<TodayPage> {
                         detailText: 'UV Index',
                         dataText: '22',
                       ),
-                    )
+                    ),
                   ],
                 )
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
