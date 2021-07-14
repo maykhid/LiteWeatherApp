@@ -12,7 +12,7 @@ class ApiClientResources {
     };
   }
 
-  clientParamsLocation(String lat, String lon) {
+  clientParamsLocation(lat, lon) {
     return {
       "lat": lat,
       "lon": lon,

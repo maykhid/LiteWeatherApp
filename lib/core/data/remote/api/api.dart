@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:lite_weather_app/core/data/remote/api/api_client_resources.dart';
 
 abstract class WeatherRemoteDataSource {
-  Future<http.Response> processClientWithLocation(String lat, String lon);
+  Future<http.Response> processClientWithLocation(lat, lon);
   Future<http.Response> processClientWithCityName(String city);
 
   //TODO: client for weeklyforecast for both location and city
@@ -37,8 +37,7 @@ class WeatherRemoteDataSourceImpl extends WeatherRemoteDataSource {
   }
 
   @override
-  Future<http.Response> processClientWithLocation(
-      String lat, String lon) async {
+  Future<http.Response> processClientWithLocation(lat, lon) async {
     late final http.Response response;
 
     try {
