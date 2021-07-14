@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lite_weather_app/app/consts/app_colors.dart';
 import 'package:lite_weather_app/ui/screens/today_page/today_page.dart';
 import 'package:lite_weather_app/ui/screens/weekly_page/weekly_page.dart';
@@ -38,16 +39,16 @@ class _BaseViewState extends State<BaseView> {
         // currentIndex: 0, // this will be set when a new tab is tapped
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: FaIcon(FontAwesomeIcons.calendarDay),
+            label: 'Today',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.mail),
-            label: 'Messages',
+            icon: FaIcon(FontAwesomeIcons.calendarWeek),
+            label: 'Weekly',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.share),
+            label: 'Share',
           )
         ],
 
