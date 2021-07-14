@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lite_weather_app/app/base_app/base_view.dart';
+import 'package:lite_weather_app/core/data_models/helper.dart';
+import 'package:lite_weather_app/core/data_models/weather_data_model.dart';
 import 'package:lite_weather_app/ui/screens/today_page/today_page_viewmodel.dart';
 import 'package:lite_weather_app/ui/widgets/main_info_header.dart';
 import 'package:lite_weather_app/ui/widgets/screen_header.dart';
+import 'package:lite_weather_app/ui/widgets/specific_details_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:weather_icons/weather_icons.dart';
@@ -19,171 +22,155 @@ class _TodayPageState extends State<TodayPage> {
     return Consumer<TodayPageViewModel>(
       // stream: null,
       builder: (context, model, _) {
-        return Column(
-          children: [
-            //image bg
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-              color: Colors.blueAccent.withOpacity(0.9),
-              width: MediaQuery.of(context).size.width,
-              height: 55.h,
-              child: Column(
+        return FutureBuilder<WeatherDataModel>(
+          future: model.requestWeatherDataWithLoacation(),
+          builder: (context, snapshot) {
+            //
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              Container(
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+
+            //
+            if (snapshot.hasData) {
+              print('testing future: ${snapshot.data!.name}');
+              return Column(
                 children: [
-                  // container search/ham
-                  ScreenHeader(),
-    
-                  SizedBox(height: 5.h),
-    
-                  // location details/ date / weather details
-                  MainInfoHeader(),
-    
-                  SizedBox(
-                    height: 20.h,
-                  ),
-    
-                  // degree
-                  Padding(
-                    padding: EdgeInsets.only(left: 5.w),
-                    child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Text(
-                        '14',
-                        style: TextStyle(fontSize: 70.sp, color: Colors.white),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-    
-            // weather details
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 2.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //image bg
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                    color: Colors.blueAccent.withOpacity(0.9),
+                    width: MediaQuery.of(context).size.width,
+                    height: 55.h,
+                    child: Column(
                       children: [
-                        // feels like
-                        InkWell(
-                          onTap: () => model.requestWeatherDataWithLoacation(),
-                          child: SpecificDetailWidget(
-                            icon: BoxedIcon(
-                              WeatherIcons.thermometer,
-                              size: 35.sp,
-                              color: Colors.black.withOpacity(0.5),
-                            ),
-                            detailText: 'Feels Like',
-                            dataText: '22',
-                          ),
+                        // container search/ham
+                        ScreenHeader(),
+
+                        SizedBox(height: 5.h),
+
+                        // location details/ date / weather details
+                        MainInfoHeader(snapshot: snapshot.data),
+
+                        SizedBox(
+                          height: 20.h,
                         ),
-    
-                        // humidity
+
+                        // degree
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5.w),
-                          child: SpecificDetailWidget(
-                            icon: BoxedIcon(
-                              WeatherIcons.raindrops,
-                              size: 35.sp,
-                              color: Colors.black.withOpacity(0.5),
+                          padding: EdgeInsets.only(left: 5.w),
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Text(
+                              // '${snapshot.data!.main.temp}',
+                              RoundOff.stringToDouble(
+                                  snapshot.data!.main.temp.toString()),
+                              style: TextStyle(
+                                  fontSize: 70.sp, color: Colors.white),
                             ),
-                            detailText: 'Humidity',
-                            dataText: '94%',
                           ),
                         )
                       ],
                     ),
-                    SizedBox(
-                      height: 10.h,
+                  ),
+
+                  // weather details
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 2.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildFirstRow(model, snapshot),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          buildSecondRow(snapshot)
+                        ],
+                      ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Wind
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5.w),
-                          child: SpecificDetailWidget(
-                            icon: FaIcon(
-                              FontAwesomeIcons.wind,
-                              size: 35.sp,
-                              color: Colors.black.withOpacity(0.5),
-                            ),
-                            detailText: 'Wind',
-                            dataText: '13 km/h',
-                          ),
-                        ),
-    
-                        // UV index
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5.w),
-                          child: SpecificDetailWidget(
-                            icon: BoxedIcon(
-                              WeatherIcons.day_sunny,
-                              size: 35.sp,
-                              color: Colors.black.withOpacity(0.5),
-                            ),
-                            detailText: 'UV Index',
-                            dataText: '22',
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
+                  ),
+                ],
+              );
+            }
+            return Container();
+          },
         );
-      }
+      },
     );
   }
-}
 
-class SpecificDetailWidget extends StatelessWidget {
-  final String detailText;
-  final String dataText;
-  final Widget icon;
+  Row buildSecondRow(AsyncSnapshot<WeatherDataModel> snapshot) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // Wind
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
+          child: SpecificDetailWidget(
+            icon: FaIcon(
+              FontAwesomeIcons.wind,
+              size: 35.sp,
+              color: Colors.black.withOpacity(0.5),
+            ),
+            detailText: 'Wind',
+            dataText: '${snapshot.data!.wind.speed} km/h',
+          ),
+        ),
 
-  const SpecificDetailWidget({
-    Key? key,
-    required this.dataText,
-    required this.detailText,
-    required this.icon,
-  }) : super(key: key);
+        // UV index
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
+          child: SpecificDetailWidget(
+            icon: BoxedIcon(
+              WeatherIcons.day_sunny,
+              size: 35.sp,
+              color: Colors.black.withOpacity(0.5),
+            ),
+            detailText: 'UV Index',
+            dataText: '22',
+          ),
+        ),
+      ],
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          // BoxedIcon(
-          //   icon,
-          //   size: 35.sp,
-          // ),
-          icon,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // detail
-              Text(
-                detailText,
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w300),
-              ),
+  Row _buildFirstRow(
+      TodayPageViewModel model, AsyncSnapshot<WeatherDataModel> snapshot) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // feels like
+        InkWell(
+          onTap: () => model.requestWeatherDataWithLoacation(),
+          child: SpecificDetailWidget(
+            icon: BoxedIcon(
+              WeatherIcons.thermometer,
+              size: 35.sp,
+              color: Colors.black.withOpacity(0.5),
+            ),
+            detailText: 'Feels Like',
+            dataText: RoundOff.stringToDouble(
+                snapshot.data!.main.feelsLike.toString()),
+          ),
+        ),
 
-              // data
-              Text(
-                dataText,
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              )
-            ],
-          )
-        ],
-      ),
+        // humidity
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
+          child: SpecificDetailWidget(
+            icon: BoxedIcon(
+              WeatherIcons.raindrops,
+              size: 35.sp,
+              color: Colors.black.withOpacity(0.5),
+            ),
+            detailText: 'Humidity',
+            dataText: '${snapshot.data!.main.humidity}%',
+          ),
+        )
+      ],
     );
   }
 }

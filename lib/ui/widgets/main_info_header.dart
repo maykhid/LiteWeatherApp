@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:lite_weather_app/core/data_models/helper.dart';
+import 'package:lite_weather_app/core/data_models/weather_data_model.dart';
 import 'package:sizer/sizer.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 class MainInfoHeader extends StatelessWidget {
+  final WeatherDataModel? snapshot;
+
   const MainInfoHeader({
     Key? key,
+    this.snapshot,
   }) : super(key: key);
 
   @override
@@ -18,7 +23,7 @@ class MainInfoHeader extends StatelessWidget {
             children: [
               // top text
               Text(
-                'New Delhi',
+                '${snapshot!.name}',
                 style: TextStyle(
                     fontSize: 20.sp,
                     color: Colors.white,
@@ -27,7 +32,7 @@ class MainInfoHeader extends StatelessWidget {
 
               // bottom text
               Text(
-                'Friday June 30',
+                DateFormatter.formatDate(DateTime.now()),
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -39,7 +44,7 @@ class MainInfoHeader extends StatelessWidget {
               ),
 
               Text(
-                'Light rain',
+                snapshot!.weather[0].description,
                 style: TextStyle(
                     fontSize: 13.sp,
                     color: Colors.white,
@@ -48,7 +53,7 @@ class MainInfoHeader extends StatelessWidget {
             ],
           ),
           BoxedIcon(
-            WeatherIcons.thunderstorm,
+            GenerateIcon.getWeatherIcon(snapshot!.weather[0].id),
             size: 40.sp,
             color: Colors.white,
           )

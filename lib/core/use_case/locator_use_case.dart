@@ -5,14 +5,14 @@ import 'package:lite_weather_app/core/data/location/locator.dart';
 class LocatorUseCase {
   Locator _locator = Locator();
 
-  Future<Either<String, Position>> getPosition() async {
+  Future<Position> getPosition() async {
     // _locator.determinePosition();
 
     try {
       var data = await _locator.determinePosition();
-      return Right(data);
+      return data;
     } on Exception catch (e) {
-      return Left(e.toString());
+      throw e;
     }
   }
 }
