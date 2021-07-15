@@ -94,7 +94,13 @@ class _TodayPageState extends State<TodayPage> {
               );
             }
             return Center(
-              child: Text("An error occured loading Data"),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("An error occured loading Data"),
+                  Text('Make sure locatioon and data connection are active'),
+                ],
+              ),
             );
           },
         );

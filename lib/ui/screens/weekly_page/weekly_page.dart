@@ -134,14 +134,20 @@ class _WeeklyPageState extends State<WeeklyPage> {
                               },
                             );
                           }
-                          return Center(
-                            child: Text("An error occured loading Data"),
-                          );
+                          return Container();
                         }),
                   ),
                 ],
               );
-            return Container();
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("An error occured loading Data"),
+                  Text('Make sure locatioon and data connection are active'),
+                ],
+              ),
+            );
           });
     });
   }
