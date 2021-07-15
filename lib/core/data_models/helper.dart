@@ -35,4 +35,12 @@ class DateFormatter {
     DateFormat formatter = DateFormat.yMMMMEEEEd();
     return formatter.format(time);
   }
+
+  static String formatUnix(DateTime time) {
+    // DateFormat formatter = DateFormat.yMMMMEEEEd();
+    // return formatter.format(time);
+    // var date = DateTime.fromMillisecondsSinceEpoch(time * 1000);
+    DateFormat formatter = DateFormat.EEEE();
+    return formatter.format(time);
+  }
 }

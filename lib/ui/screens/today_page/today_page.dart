@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lite_weather_app/app/base_app/base_view.dart';
 import 'package:lite_weather_app/core/data_models/helper.dart';
 import 'package:lite_weather_app/core/data_models/weather_data_model.dart';
 import 'package:lite_weather_app/ui/screens/today_page/today_page_viewmodel.dart';
@@ -27,14 +26,13 @@ class _TodayPageState extends State<TodayPage> {
           builder: (context, snapshot) {
             //
             if (snapshot.connectionState == ConnectionState.waiting) {
-              Container(
+              return Container(
                 child: Center(child: CircularProgressIndicator()),
               );
             }
 
             //
             if (snapshot.hasData) {
-              print('testing future: ${snapshot.data!.name}');
               return Column(
                 children: [
                   //image bg
@@ -95,7 +93,9 @@ class _TodayPageState extends State<TodayPage> {
                 ],
               );
             }
-            return Container();
+            return Center(
+              child: Text("An error occured loading Data"),
+            );
           },
         );
       },
@@ -116,7 +116,7 @@ class _TodayPageState extends State<TodayPage> {
               color: Colors.black.withOpacity(0.5),
             ),
             detailText: 'Wind',
-            dataText: '${snapshot.data!.wind.speed} km/h',
+            dataText: '${snapshot.data!.wind.speed} m/h',
           ),
         ),
 

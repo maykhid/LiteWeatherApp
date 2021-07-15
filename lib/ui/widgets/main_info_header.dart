@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lite_weather_app/core/data_models/helper.dart';
 import 'package:lite_weather_app/core/data_models/weather_data_model.dart';
+import 'package:lite_weather_app/app/extensions/extensions.dart';
 import 'package:sizer/sizer.dart';
 import 'package:weather_icons/weather_icons.dart';
 
@@ -23,7 +24,7 @@ class MainInfoHeader extends StatelessWidget {
             children: [
               // top text
               Text(
-                '${snapshot!.name}',
+                '${snapshot!.name.capitalize()}',
                 style: TextStyle(
                     fontSize: 20.sp,
                     color: Colors.white,
@@ -44,7 +45,7 @@ class MainInfoHeader extends StatelessWidget {
               ),
 
               Text(
-                snapshot!.weather[0].description,
+                snapshot!.weather[0].description.capitalize(),
                 style: TextStyle(
                     fontSize: 13.sp,
                     color: Colors.white,

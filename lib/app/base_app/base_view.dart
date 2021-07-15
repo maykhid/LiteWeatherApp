@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lite_weather_app/app/consts/app_colors.dart';
+import 'package:lite_weather_app/ui/screens/share_page/share_page.dart';
 import 'package:lite_weather_app/ui/screens/today_page/today_page.dart';
 import 'package:lite_weather_app/ui/screens/weekly_page/weekly_page.dart';
 
@@ -28,7 +28,7 @@ class _BaseViewState extends State<BaseView> {
   List<Widget> _widgetOptions = <Widget>[
     TodayPage(),
     WeeklyPage(),
-    WeeklyPage(),
+    SharePage(),
   ];
 
   @override
@@ -36,7 +36,6 @@ class _BaseViewState extends State<BaseView> {
     return Scaffold(
       // appBar: AppBar(),
       bottomNavigationBar: BottomNavigationBar(
-        // currentIndex: 0, // this will be set when a new tab is tapped
         items: [
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.calendarDay),
@@ -51,7 +50,6 @@ class _BaseViewState extends State<BaseView> {
             label: 'Share',
           )
         ],
-
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
         onTap: _onItemTapped,
