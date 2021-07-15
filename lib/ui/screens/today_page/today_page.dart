@@ -37,9 +37,19 @@ class _TodayPageState extends State<TodayPage> {
                 children: [
                   //image bg
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-                    color: Colors.blueAccent.withOpacity(0.9),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 4.w,
+                      vertical: 2.h,
+                    ),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        colorFilter: ColorFilter.srgbToLinearGamma(),
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                          'assets/images/bg_img.jpg',
+                        ),
+                      ),
+                    ),
                     width: MediaQuery.of(context).size.width,
                     height: 55.h,
                     child: Column(
