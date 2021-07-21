@@ -20,11 +20,11 @@ class Sys {
   String toJson() => json.encode(toMap());
 
   factory Sys.fromMap(Map<String, dynamic> json) => Sys(
-        type: json["type"],
-        id: json["id"],
+        type: json["type"] ?? 0,
+        id: json["id"] ?? 0,
         country: json["country"],
-        sunrise: json["sunrise"],
-        sunset: json["sunset"],
+        sunrise: json["sunrise"] ?? 0,
+        sunset: json["sunset"] ?? 0,
       );
 
   Map<String, dynamic> toMap() => {
