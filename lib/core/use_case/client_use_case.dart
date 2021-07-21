@@ -18,7 +18,9 @@ class WeatherApiUseCaseImpl extends WeatherApiUseCase {
     //
     try {
       var data = await _weatherRemoteDataSourceImpl.processClientWithLocation(
-          lat, lon);
+        lat,
+        lon,
+      );
       print(data.body);
 
       return WeatherDataModel.fromJson(data.body);

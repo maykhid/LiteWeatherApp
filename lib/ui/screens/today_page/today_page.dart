@@ -32,7 +32,8 @@ class _TodayPageState extends State<TodayPage> {
             }
 
             //
-            if (snapshot.hasData) {
+            if (snapshot.hasData &&
+                snapshot.connectionState == ConnectionState.done) {
               return Column(
                 children: [
                   //image bg

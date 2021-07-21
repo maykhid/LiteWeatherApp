@@ -5,11 +5,11 @@ import 'package:lite_weather_app/core/use_case/locator_use_case.dart';
 
 class TodayPageViewModel extends BaseViewModel {
   WeatherApiUseCaseImpl _weatherApiUseCaseImpl = WeatherApiUseCaseImpl();
-  LocatorUseCase locatorUseCase = LocatorUseCase();
+  LocatorUseCase _locatorUseCase = LocatorUseCase();
 
   Future<WeatherDataModel> requestWeatherDataWithLoacation() async {
     try {
-      var position = await locatorUseCase.getPosition();
+      var position = await _locatorUseCase.getPosition();
       String lat = position.latitude.toString();
       String lon = position.longitude.toString();
       //
@@ -17,7 +17,9 @@ class TodayPageViewModel extends BaseViewModel {
       // print('This is ${data.name}');
       return data;
     } catch (e) {
-      throw Exception();
+      // print(e);
+      // throw Exception(e);
+      rethrow;
     }
   }
 
