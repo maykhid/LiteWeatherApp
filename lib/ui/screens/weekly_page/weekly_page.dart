@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lite_weather_app/app/base_app/base_view.dart';
 import 'package:lite_weather_app/app/consts/app_colors.dart';
 import 'package:lite_weather_app/core/data_models/helper.dart';
 import 'package:lite_weather_app/core/data_models/weather_data_model.dart';
@@ -30,7 +29,9 @@ class _WeeklyPageState extends State<WeeklyPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting)
               return Container(
-                child: Center(child: CircularProgressIndicator()),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
               );
 
             if (snapshot.hasData)
@@ -45,7 +46,9 @@ class _WeeklyPageState extends State<WeeklyPage> {
                     child: Column(
                       children: [
                         // screenheader
-                        ScreenHeader(),
+                        ScreenHeader(
+                          context: context,
+                        ),
 
                         //
                         SizedBox(height: 5.h),
@@ -56,10 +59,6 @@ class _WeeklyPageState extends State<WeeklyPage> {
                             children: [
                               // main info
                               MainInfoHeader(snapshot: snapshot.data),
-
-                              // SizedBox(
-                              //   height: 5.h,
-                              // ),
 
                               // degree
                               Align(

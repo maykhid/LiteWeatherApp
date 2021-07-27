@@ -56,7 +56,9 @@ class _TodayPageState extends State<TodayPage> {
                     child: Column(
                       children: [
                         // container search/ham
-                        ScreenHeader(),
+                        ScreenHeader(
+                          context: context,
+                        ),
 
                         SizedBox(height: 5.h),
 
@@ -117,7 +119,8 @@ class _TodayPageState extends State<TodayPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("An error occured!"),
-                  Text('Please turn on location, also check your internet connection'),
+                  Text(
+                      'Please turn on location, also check your internet connection'),
                 ],
               ),
             );
