@@ -41,7 +41,7 @@ class _WeeklyPageState extends State<WeeklyPage> {
                         EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
                     color: AppColors.deepBlue,
                     width: MediaQuery.of(context).size.width,
-                    height: 40.h,
+                    height: 47.h,
                     child: Column(
                       children: [
                         // screenheader
@@ -50,23 +50,30 @@ class _WeeklyPageState extends State<WeeklyPage> {
                         //
                         SizedBox(height: 5.h),
 
-                        // main info
-                        MainInfoHeader(snapshot: snapshot.data),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // main info
+                              MainInfoHeader(snapshot: snapshot.data),
 
-                        SizedBox(
-                          height: 5.h,
-                        ),
+                              // SizedBox(
+                              //   height: 5.h,
+                              // ),
 
-                        // degree
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            RoundOff.stringToDouble(
-                                snapshot.data!.main.temp.toString()),
-                            style:
-                                TextStyle(fontSize: 70.sp, color: Colors.white),
+                              // degree
+                              Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                  RoundOff.stringToDouble(
+                                      snapshot.data!.main.temp.toString()),
+                                  style: TextStyle(
+                                      fontSize: 70.sp, color: Colors.white),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -143,8 +150,9 @@ class _WeeklyPageState extends State<WeeklyPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("An error occured loading Data"),
-                  Text('Make sure locatioon and data connection are active'),
+                  Text("An error occured!"),
+                  Text(
+                      'Please turn on location, also check your internet connection'),
                 ],
               ),
             );

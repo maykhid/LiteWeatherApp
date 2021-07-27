@@ -60,33 +60,41 @@ class _TodayPageState extends State<TodayPage> {
 
                         SizedBox(height: 5.h),
 
-                        // location details/ date / weather details
-                        MainInfoHeader(snapshot: snapshot.data),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // location details/ date / weather details
+                              MainInfoHeader(snapshot: snapshot.data),
 
-                        SizedBox(
-                          height: 20.h,
-                        ),
+                              // SizedBox(
+                              //   height: 20.h,
+                              // ),
 
-                        // degree
-                        Padding(
-                          padding: EdgeInsets.only(left: 5.w),
-                          child: Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Text(
-                              // '${snapshot.data!.main.temp}',
-                              RoundOff.stringToDouble(
-                                  snapshot.data!.main.temp.toString()),
-                              style: TextStyle(
-                                  fontSize: 70.sp, color: Colors.white),
-                            ),
+                              // degree
+                              Padding(
+                                padding: EdgeInsets.only(left: 5.w),
+                                child: Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(
+                                    // '${snapshot.data!.main.temp}',
+                                    RoundOff.stringToDouble(
+                                        snapshot.data!.main.temp.toString()),
+                                    style: TextStyle(
+                                        fontSize: 70.sp, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
 
                   // weather details
-                  Expanded(
+                  FittedBox(
+                    fit: BoxFit.contain,
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 2.h),
                       child: Column(
@@ -108,8 +116,8 @@ class _TodayPageState extends State<TodayPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("An error occured loading Data"),
-                  Text('Make sure locatioon and data connection are active'),
+                  Text("An error occured!"),
+                  Text('Please turn on location, also check your internet connection'),
                 ],
               ),
             );
@@ -160,18 +168,15 @@ class _TodayPageState extends State<TodayPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // feels like
-        InkWell(
-          onTap: () => model.requestWeatherDataWithLoacation(),
-          child: SpecificDetailWidget(
-            icon: BoxedIcon(
-              WeatherIcons.thermometer,
-              size: 35.sp,
-              color: Colors.black.withOpacity(0.5),
-            ),
-            detailText: 'Feels Like',
-            dataText: RoundOff.stringToDouble(
-                snapshot.data!.main.feelsLike.toString()),
+        SpecificDetailWidget(
+          icon: BoxedIcon(
+            WeatherIcons.thermometer,
+            size: 35.sp,
+            color: Colors.black.withOpacity(0.5),
           ),
+          detailText: 'Feels Like',
+          dataText:
+              RoundOff.stringToDouble(snapshot.data!.main.feelsLike.toString()),
         ),
 
         // humidity
