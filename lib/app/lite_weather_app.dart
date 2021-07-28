@@ -7,6 +7,8 @@ import 'package:lite_weather_app/ui/screens/weekly_page/weekly_page_viewmodel.da
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../main.dart';
+
 class LiteWeatherApp extends StatefulWidget {
   // This widget is the root of your application.
   @override
@@ -15,6 +17,7 @@ class LiteWeatherApp extends StatefulWidget {
 
 class _LiteWeatherAppState extends State<LiteWeatherApp> {
   final Connectivity _connectivity = Connectivity();
+
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, _, __) {
@@ -34,6 +37,7 @@ class _LiteWeatherAppState extends State<LiteWeatherApp> {
             return MaterialApp(
               // title: 'Flutter Demo',
               debugShowCheckedModeBanner: false,
+              navigatorObservers: [routeObserver],
               home: BaseView(),
             );
           });
