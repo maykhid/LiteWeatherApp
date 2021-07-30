@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lite_weather_app/app/consts/app_colors.dart';
+import 'package:lite_weather_app/app/nav_notifier.dart';
 import 'package:lite_weather_app/core/data_models/helper.dart';
 import 'package:lite_weather_app/core/data_models/weather_data_model.dart';
 import 'package:lite_weather_app/core/data_models/weather_forecast_model.dart';
@@ -11,6 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:weather_icons/weather_icons.dart';
 
+import '../../../main.dart';
+
 class WeeklyPage extends StatefulWidget {
   const WeeklyPage({Key? key}) : super(key: key);
 
@@ -18,7 +21,55 @@ class WeeklyPage extends StatefulWidget {
   _WeeklyPageState createState() => _WeeklyPageState();
 }
 
-class _WeeklyPageState extends State<WeeklyPage> {
+class _WeeklyPageState extends State<WeeklyPage> with RouteAware {
+  bool _didRouteChange = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // routeObserver is the global variable we created before
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPush() {
+    // Route was pushed onto navigator and is now topmost route.
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      print('didPush');
+      var provider = Provider.of<NavigationNotifier>(context, listen: false);
+      _didRouteChange = true;
+      provider.updateRouteChange(_didRouteChange);
+    });
+    // if (overlayEntry != null) overlayEntry!.remove();
+  }
+
+  // @override
+  // void didPopNext() {
+  //   // Covering route was popped off the navigator.
+  //   print('didPopNext');
+  //   // if (overlayEntry != null) overlayEntry!.remove();
+  // }
+
+  // @override
+  // void didPushNext() {
+  //   // Covering route was popped off the navigator.
+  //   print('didPushNext');
+  //   // if (overlayEntry != null) overlayEntry!.remove();
+  // }
+
+  // @override
+  // void didPop() {
+  //   // Covering route was popped off the navigator.
+  //   print('didPop');
+  //   // if (overlayEntry != null) overlayEntry!.remove();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<WeeklyPageViewModel>(

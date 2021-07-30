@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lite_weather_app/app/nav_notifier.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../main.dart';
@@ -11,39 +13,80 @@ class ScreenHeader extends StatefulWidget {
   _ScreenHeaderState createState() => _ScreenHeaderState();
 }
 
-class _ScreenHeaderState extends State<ScreenHeader> with RouteAware {
+class _ScreenHeaderState extends State<ScreenHeader> {
   OverlayEntry? overlayEntry;
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement initState
+    super.didChangeDependencies();
+    var provider = Provider.of<NavigationNotifier>(context, listen: true);
+    if (provider.didRouteChange == true &&
+        (overlayEntry != null && overlayEntry!.mounted)) {
+      // setState(() {
+      overlayEntry!.remove();
+      // });
+
+      if (overlayEntry == null) print('ovelay is null');
+
+      print('overlay popped?');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // print('ScreenHeader ${provider.didRouteChange}');
+
     _createOverlayEntry() {
-      overlayEntry = OverlayEntry(builder: (context) => SearchPopUp());
+      setState(() {
+        overlayEntry = OverlayEntry(
+            builder: (context) => SearchPopUp(), maintainState: true);
+        print('state was set $overlayEntry');
+      });
+
       Overlay.of(widget.context)!.insert(overlayEntry!);
     }
 
-    @override
-    void didChangeDependencies() {
-      super.didChangeDependencies();
-      // routeObserver is the global variable we created before
-      routeObserver.subscribe(this, ModalRoute.of(widget.context) as PageRoute);
-    }
+    // @override
+    // void didChangeDependencies() {
+    //   super.didChangeDependencies();
+    //   // routeObserver is the global variable we created before
+    //   routeObserver.subscribe(this, ModalRoute.of(widget.context) as PageRoute);
+    // }
 
-    @override
-    void dispose() {
-      routeObserver.unsubscribe(this);
-      super.dispose();
-    }
+    // @override
+    // void dispose() {
+    //   routeObserver.unsubscribe(this);
+    //   super.dispose();
+    // }
 
-    @override
-    void didPush() {
-      // Route was pushed onto navigator and is now topmost route.
-      if (overlayEntry != null) overlayEntry!.remove();
-    }
+    // @override
+    // void didPush() {
+    //   // Route was pushed onto navigator and is now topmost route.
+    //   print('didPush');
+    //   if (overlayEntry != null) overlayEntry!.remove();
+    // }
 
-    @override
-    void didPopNext() {
-      // Covering route was popped off the navigator.
-      if (overlayEntry != null) overlayEntry!.remove();
-    }
+    // @override
+    // void didPopNext() {
+    //   // Covering route was popped off the navigator.
+    //   print('didPopNext');
+    //   if (overlayEntry != null) overlayEntry!.remove();
+    // }
+
+    // @override
+    // void didPushNext() {
+    //   // Covering route was popped off the navigator.
+    //   print('didPushNext');
+    //   if (overlayEntry != null) overlayEntry!.remove();
+    // }
+
+    // @override
+    // void didPop() {
+    //   // Covering route was popped off the navigator.
+    //   print('didPop');
+    //   if (overlayEntry != null) overlayEntry!.remove();
+    // }
 
     @override
     _toggleSearch() {
