@@ -44,6 +44,8 @@
 
 <br>
 
+![home screen]](https://user-images.githubusercontent.com/54851623/197090107-0d0b8343-02dc-4134-9c9b-0a9ef321ac27.png)
+
 ## :dart: About ##
 This project shows weather information based on location.
 
@@ -94,5 +96,6 @@ This project is under license from MIT. For more details, see the [LICENSE](LICE
 Made with :heart: by <a href="https://github.com/maykhid" target="_blank">maykhid</a>
 
 &#xa0;
-
+<!-- ![Simulator Screen Shot - iPhone 12 Pro - 2022-10-21 at 01 52 52](https://user-images.githubusercontent.com/54851623/197090107-0d0b8343-02dc-4134-9c9b-0a9ef321ac27.png)
+![Simulator Screen Shot - iPhone 12 Pro - 2022-10-21 at 01 53 40](https://user-images.githubusercontent.com/54851623/197090155-53c92cc9-c42b-43fc-a389-658ba184d606.png) -->
 <!-- <a href="#top">Back to top</a> -->
