@@ -87,6 +87,13 @@ From VS Code: Click Get Packages located in right side of the action ribbon at t
 <!-- <h4 align="center"> 
 	🚧  DevStatus for web on the way 🚧
 </h4>  -->
+## :sparkles: Screenshots ##
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/54851623/197090107-0d0b8343-02dc-4134-9c9b-0a9ef321ac27.png" width="300" height="700" />
+  <img src="https://user-images.githubusercontent.com/54851623/197090155-53c92cc9-c42b-43fc-a389-658ba184d606.png" width="300" height="700"/> 
+<!--   <img src="/img3.png" width="100" /> -->
+</p>
+
 
 ## :memo: License ##
 
