@@ -49,7 +49,7 @@ This project shows weather information based on location.
 
 ## :sparkles: Features ##
 
-:heavy_check_mark: Provides daily updates on weather based on location.
+:heavy_check_mark: Provides daily updates on weather based on location.\
 :heavy_check_mark: Shows user a weekly forecast.
 <!-- :heavy_check_mark: Feature 3;
 
